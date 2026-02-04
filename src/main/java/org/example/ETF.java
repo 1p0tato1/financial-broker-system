@@ -6,4 +6,11 @@ public class ETF {
     private TypeDistribution typeDistribution;
     private TypeReplication typeReplication;
 
+    public ETF(double taille, double frais, TypeDistribution dist, TypeReplication repli) {
+        this.tailleFondsM = taille;
+        this.pourcentageFrais = frais;
+        this.typeDistribution = dist;
+        this.typeReplication = repli;
+    }
+
 }
