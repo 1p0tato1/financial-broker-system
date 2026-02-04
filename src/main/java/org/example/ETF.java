@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.enums.TypeDistribution;
+import org.example.enums.TypeReplication;
+
 public class ETF {
     private double tailleFondsM;
     private double pourcentageFrais;
