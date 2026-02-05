@@ -79,4 +79,8 @@ public abstract class Actif implements Vendable {
     public double vendre() {
         return this.prixCourant;
     }
+
+    public void mettreAJourPrix(double nouveauPrix) {
+        this.prixCourant = nouveauPrix;
+    }
 }
