@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Objects;
 
-public abstract class Actif {
+public abstract class Actif implements Vendable {
     private String ticker;
     private String nom ;
     private double prixCourant;
@@ -72,5 +72,11 @@ public abstract class Actif {
                 ", prixCourant=" + prixCourant +
                 ", pays='" + pays + '\'' +
                 '}';
+    }
+
+    // vendre() method because Actif implements Vendable
+    @Override
+    public double vendre() {
+        return this.prixCourant;
     }
 }
