@@ -14,7 +14,7 @@ public abstract class Enveloppe {
 
     protected Map<String, Position> portefeuille = new HashMap<>();
     protected List<Ordre> ordreEnCours = new ArrayList<>();
-
+    protected List<Transaction> transactions = new ArrayList<>();
 
     // Function Methods
     public abstract boolean estActifEligible(Actif actif);
@@ -23,19 +23,29 @@ public abstract class Enveloppe {
 
     public void passerUnOrdre(Ordre o) {
         this.ordreEnCours.add(o);
+
         Actif actifConcerne = o.getActif();
         double montantTotal = o.getQuantite() * o.getPrixMinMax();
         String ticker = actifConcerne.getTicker();
+
         if (o.getType() == TypeOrdre.ACHAT) {
+            // Achat
+
+            // Vérifications
             if (!this.estActifEligible(actifConcerne)) {
                 System.out.println("ERREUR : L'actif " + actifConcerne.getNom() + " n'est pas éligible pour cette enveloppe.");
                 return;
             }
+
             if (this.soldeEspeces < montantTotal) {
                 System.out.println("ERREUR : Fonds insuffisants (Solde: " + this.soldeEspeces + " / Requis: " + montantTotal + ")");
                 return;
             }
+
+            // Exécution financière
             this.soldeEspeces -= montantTotal;
+
+            // Mise à jour du portefeuille
             if (portefeuille.containsKey(ticker)) {
                 Position positionExistante = portefeuille.get(ticker);
                 double nouvelleQuantite = positionExistante.getQuantite() + o.getQuantite();
@@ -44,10 +54,17 @@ public abstract class Enveloppe {
                 Position nouvellePosition = new Position(actifConcerne, o.getQuantite());
                 portefeuille.put(ticker, nouvellePosition);
             }
+
+            // Création de la Transaction
+            Transaction t = new Transaction(montantTotal, o.getPrixMinMax());
+            this.transactions.add(t);
+
             System.out.println("ACHAT réussi : " + o.getQuantite() + " x " + actifConcerne.getNom());
 
         } else if (o.getType() == TypeOrdre.VENTE) {
+            // VENTE
 
+            // Vérifications
             if (!portefeuille.containsKey(ticker)) {
                 System.out.println("ERREUR : Vous ne possédez pas l'actif " + actifConcerne.getNom());
                 return;
@@ -60,13 +77,21 @@ public abstract class Enveloppe {
                 return;
             }
 
+            // Exécution financière
             this.soldeEspeces += montantTotal;
+
+            // Mise à jour du portefeuille
             double nouvelleQuantite = positionActuelle.getQuantite() - o.getQuantite();
             if (nouvelleQuantite == 0) {
                 portefeuille.remove(ticker);
             } else {
                 positionActuelle.setQuantite(nouvelleQuantite);
             }
+
+            // Création de la Transaction
+            Transaction t = new Transaction(montantTotal, o.getPrixMinMax());
+            this.transactions.add(t);
+
             System.out.println("VENTE réussie : " + o.getQuantite() + " x " + actifConcerne.getNom());
         }
     }

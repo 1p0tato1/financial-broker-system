@@ -11,10 +11,10 @@ public class Transaction {
 
     // Constructor
 
-    public Transaction(double montantTotal, double prixExecution, LocalDateTime dateExecution) {
+    public Transaction(double montantTotal, double prixExecution) {
         this.montantTotal = montantTotal;
         this.prixExecution = prixExecution;
-        this.dateExecution = dateExecution;
+        this.dateExecution = LocalDateTime.now();
     }
 
     // Setters and Getters
