@@ -18,7 +18,8 @@ public class Ordre {
 
 
     // Constructor
-    public Ordre(LocalDateTime date, TypeOrdre type, double quantite, Devise devise, double prixMinMax) {
+
+    public Ordre(Actif actif, LocalDateTime date, TypeOrdre type, double quantite, Devise devise, double prixMinMax) {
         this.actif = actif;
         this.date = date;
         this.type = type;
@@ -26,6 +27,7 @@ public class Ordre {
         this.devise = devise;
         this.prixMinMax = prixMinMax;
     }
+
 
     // Getters and Setters
 

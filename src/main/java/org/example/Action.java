@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.enums.Devise;
 
 public class Action extends Actif {
 
