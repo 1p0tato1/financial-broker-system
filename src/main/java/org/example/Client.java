@@ -1,12 +1,19 @@
 package org.example;
 
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
     private int id;
     private String nom;
     private String prenom;
     private Adresse adresse;
+
+    // A client has multiple Enveloppes
+
+    private final List<Enveloppe> enveloppes = new ArrayList<>();
+
 
     // Constructor
 
@@ -51,6 +58,10 @@ public class Client {
         this.adresse = adresse;
     }
 
+    public List<Enveloppe> getEnveloppes() {
+        return enveloppes;
+    }
+
     // Basic Methods
 
     @Override
@@ -78,5 +89,9 @@ public class Client {
     // Class Method
     public void afficherAdresse() {
         System.out.println("Adresse de " + prenom + " " + nom + " : " + this.adresse);
+    }
+
+    public void ajouterEnveloppe(Enveloppe e) {
+        this.enveloppes.add(e);
     }
 }
