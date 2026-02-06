@@ -14,8 +14,12 @@ public class Ordre {
     private TypeOrdre type;
     private LocalDateTime date;
 
+    private Actif actif;
+
+
     // Constructor
     public Ordre(LocalDateTime date, TypeOrdre type, double quantite, Devise devise, double prixMinMax) {
+        this.actif = actif;
         this.date = date;
         this.type = type;
         this.quantite = quantite;
@@ -63,6 +67,10 @@ public class Ordre {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Actif getActif() {
+        return actif;
     }
 
     // Basic Methods

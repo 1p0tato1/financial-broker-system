@@ -4,14 +4,19 @@ import java.util.Objects;
 
 public class Position {
     private double quantite;
+    private Actif actif;
 
     // Constructor
 
-    public Position(double quantite) {
+    public Position(Actif actif, double quantite) {
+        this.actif = actif;
         this.quantite = quantite;
     }
 
     // Setters and Getters
+    public Actif getActif() {
+        return actif;
+    }
 
     public double getQuantite() {
         return quantite;
@@ -21,6 +26,9 @@ public class Position {
         this.quantite = quantite;
     }
 
+    public double getValeur() {
+        return actif.getPrixCourant() * quantite;
+    }
     // Basic Methods
 
     @Override
