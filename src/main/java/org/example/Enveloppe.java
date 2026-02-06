@@ -93,14 +93,11 @@ public abstract class Enveloppe {
 
     // Constructor
 
-    public Enveloppe(String numero, LocalDateTime dateOuverte, double soldeEspeces, double frais, double fraisDepot, Map<String, Position> portefeuille, List<Ordre> ordreEnCours) {
+    public Enveloppe(String numero, double soldeEspeces, double fraisDepot) {
         this.numero = numero;
-        this.dateOuverte = dateOuverte;
         this.soldeEspeces = soldeEspeces;
-        this.frais = frais;
         this.fraisDepot = fraisDepot;
-        this.portefeuille = portefeuille;
-        this.ordreEnCours = ordreEnCours;
+        this.dateOuverte = LocalDateTime.now();
     }
 
 
