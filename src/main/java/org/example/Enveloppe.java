@@ -116,6 +116,12 @@ public abstract class Enveloppe {
         return getValeurTotaleBrute() - calculerFiscalite();
     }
 
+    public void afficherOrdreEnCours(){
+        System.out.println("Ordres en cours :");
+        for (Ordre o : ordreEnCours) {
+            System.out.println(o.toString());
+        }
+    }
     // Constructor
 
     public Enveloppe(String numero, double soldeEspeces, double fraisDepot) {
