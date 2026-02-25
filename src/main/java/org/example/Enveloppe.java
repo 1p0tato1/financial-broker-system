@@ -14,7 +14,7 @@ public abstract class Enveloppe {
 
     protected Map<String, Position> portefeuille = new HashMap<>();
     protected List<Ordre> ordreEnCours = new ArrayList<>();
-    protected List<Transaction> transactions = new ArrayList<>();
+    protected List<Transaction> transactions = new ArrayList<>();  // Maybe HashMap is better than ArrayList or even Map is the best because it permits that each transaction has a id
 
     // Function Methods
     public abstract boolean estActifEligible(Actif actif);
