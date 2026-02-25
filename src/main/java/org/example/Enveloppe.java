@@ -122,6 +122,13 @@ public abstract class Enveloppe {
             System.out.println(o.toString());
         }
     }
+
+    public void afficherTransactions(){
+        System.out.println("Transactions :");
+        for (Transaction t : transactions ) {
+            System.out.println(t.toString());
+        }
+    }
     // Constructor
 
     public Enveloppe(String numero, double soldeEspeces, double fraisDepot) {
