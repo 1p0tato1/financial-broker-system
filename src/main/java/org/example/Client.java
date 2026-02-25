@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.Objects;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Client {
     private int id;
@@ -10,18 +8,16 @@ public class Client {
     private String prenom;
     private Adresse adresse;
 
-    // A client has multiple Enveloppes
-
     private final List<Enveloppe> enveloppes = new ArrayList<>();
-
+    private Set<Adresse> adresses = new HashSet<>();
 
     // Constructor
 
-    public Client(int id, String nom, String prenom, Adresse adresse) {
+    public Client(int id, String nom, String prenom, Adresse adresseInitiale) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = adresse;
+        this.adresses.add(adresseInitiale);
     }
 
     // Setters end Getters
@@ -62,6 +58,14 @@ public class Client {
         return enveloppes;
     }
 
+    public Set<Adresse> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(Set<Adresse> adresses) {
+        this.adresses = adresses;
+    }
+
     // Basic Methods
 
     @Override
@@ -87,11 +91,16 @@ public class Client {
     }
 
     // Class Method
-    public void afficherAdresse() {
-        System.out.println("Adresse de " + prenom + " " + nom + " : " + this.adresse);
+    public void afficherAdresses() {
+        System.out.println("Adresses de " + prenom + " " + nom + " :");
+        for (Adresse a : adresses) {
+            System.out.println(" - " + a);
+        }
     }
 
     public void ajouterEnveloppe(Enveloppe e) {
         this.enveloppes.add(e);
     }
 }
+
+
