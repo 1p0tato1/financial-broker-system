@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.enums.TypeOrdre;
+import org.example.exceptions.ActifNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -96,12 +97,13 @@ public abstract class Enveloppe {
         }
     }
 
-    public Actif rechercherActif(String ticker) {
+    public Actif rechercherActif(String ticker) throws ActifNotFoundException {
         Position p = portefeuille.get(ticker);
         if (p != null) {
             return p.getActif();
         }
-        return null;
+
+        throw new ActifNotFoundException("Actif non trouvé : " + ticker);
     }
 
     public double getValeurTotaleBrute() {

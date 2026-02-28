@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.exceptions.ActifNotFoundException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,20 @@ public class Broker {
                 }
             }
             System.out.println("=========================================");
+        }
+
+        // Test de l'exception ActifNotFoundException
+        System.out.println("\n--- Test de ActifNotFoundException ---");
+        Enveloppe firstEnveloppe = clients.getFirst().getEnveloppes().get(0);
+        try {
+            System.out.println("Recherche d'un actif existant (AAPL)...");
+            Actif actif = firstEnveloppe.rechercherActif("AAPL");
+            System.out.println("Actif trouvé: " + actif.getNom());
+
+            System.out.println("\nRecherche d'un actif inexistant (GOOGL)...");
+            firstEnveloppe.rechercherActif("GOOGL");
+        } catch (ActifNotFoundException e) {
+            System.err.println("Erreur attendue: " + e.getMessage());
         }
     }
 }
