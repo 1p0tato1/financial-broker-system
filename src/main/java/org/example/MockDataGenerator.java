@@ -43,6 +43,16 @@ public class MockDataGenerator {
             Ordre ordreAchatLVMH = new Ordre(lvmh, LocalDateTime.now(), TypeOrdre.ACHAT, 20, Devise.EUR, 800.0);
             cto2.passerUnOrdre(ordreAchatLVMH);
             clients.add(client2);
+
+            Adresse adresse3 = new Adresse("1", "Place de la République", "", "69001", "Lyon");
+            Client client3 = new Client(3, "Dubois", "Luc", adresse3);
+            PEA pea1 = new PEA("PEA-001", 15000.0);
+            client3.ajouterEnveloppe(pea1);
+            Action total = new Action("TTE", "TotalEnergies", 60.0, "France");
+            Ordre ordreAchatTotal = new Ordre(total, LocalDateTime.now(), TypeOrdre.ACHAT, 50, Devise.EUR, 60.0);
+            pea1.passerUnOrdre(ordreAchatTotal);
+            clients.add(client3);
+
         } catch (TransactionFractionneeInvalideException e) {
             System.err.println("Erreur lors de la génération des données de test : " + e.getMessage());
         }

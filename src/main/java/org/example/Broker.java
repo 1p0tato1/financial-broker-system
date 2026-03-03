@@ -66,24 +66,22 @@ public class Broker {
             System.out.println("\nRecherche d'un actif inexistant (GOOGL)...");
             firstEnveloppe.rechercherActif("GOOGL");
         } catch (ActifNotFoundException e) {
-            System.err.println("Erreur attendue: " + e.getMessage());
+            System.out.println("❌ Erreur attendue: " + e.getMessage());
         }
 
-        // Test de l'exception TransactionFractionneeInvalideException
+        // Test de l'exception TransactionFractionneeInvalideException sur un compte PEA
         System.out.println("\n--- Test de TransactionFractionneeInvalideException ---");
+        Enveloppe peaDeTest = clients.get(2).getEnveloppes().get(0);
         try {
-            System.out.println("Tentative de passage d'un ordre avec une quantité fractionnée (1.5 unités)...");
-
-            // On crée un actif et un ordre temporaires pour le test
+            System.out.println("Tentative de passage d'un ordre avec une quantité fractionnée (1.5 unités) sur un PEA...");
             Actif actifTest = new Action("TEST", "Entreprise Test", 100.0, "France");
             Ordre ordreFractionne = new Ordre(actifTest, LocalDateTime.now(), TypeOrdre.ACHAT, 1.5, Devise.EUR, 100.0);
 
-            // L'appel de cette méthode devrait déclencher l'exception
-            firstEnveloppe.passerUnOrdre(ordreFractionne);
-
+            // L'appel de cette méthode sur le PEA DOIT déclencher l'exception
+            peaDeTest.passerUnOrdre(ordreFractionne);
             System.out.println("Succès (Cette ligne ne devrait pas s'afficher si l'exception fonctionne bien).");
         } catch (TransactionFractionneeInvalideException e) {
-            System.err.println("Erreur attendue: " + e.getMessage());
+            System.out.println("❌ Erreur attendue: " + e.getMessage());
         }
     }
 }

@@ -24,10 +24,6 @@ public abstract class Enveloppe {
     public abstract double calculerFiscalite();
 
     public void passerUnOrdre(Ordre o) throws TransactionFractionneeInvalideException {
-        // Exception
-        if (o.getQuantite() % 1 != 0) {
-            throw new TransactionFractionneeInvalideException("Transaction Fractionnée invalide pour : " + o.getActif().getTicker());
-        }
         this.ordreEnCours.add(o);
 
         Actif actifConcerne = o.getActif();
