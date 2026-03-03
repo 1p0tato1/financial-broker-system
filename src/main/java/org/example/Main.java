@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.enums.Devise;
 import org.example.enums.TypeOrdre;
+import org.example.exceptions.TransactionFractionneeInvalideException;
 import java.time.LocalDateTime;
 
 public class Main {
@@ -22,23 +23,28 @@ public class Main {
         Action apple = new Action("AAPL", "Apple Inc.", 150.0, "USA");
 
         // Passage d'un ordre d'ACHAT (10 actions)
-        System.out.println("\n--- ACHAT DE 10 APPLE ---");
-        Ordre ordreAchat = new Ordre(apple, LocalDateTime.now(), TypeOrdre.ACHAT, 10, Devise.USD, 150.0);
-        cto.passerUnOrdre(ordreAchat);
+        try {
+            System.out.println("\n--- ACHAT DE 10 APPLE ---");
+            Ordre ordreAchat = new Ordre(apple, LocalDateTime.now(), TypeOrdre.ACHAT, 10, Devise.USD, 150.0);
+            cto.passerUnOrdre(ordreAchat);
 
-        // Vérification après achat
-        System.out.println("Nouveau solde : " + cto.getSoldeEspeces()); // Doit être 8500.0
+            // Vérification après achat
+            System.out.println("Nouveau solde : " + cto.getSoldeEspeces()); // Doit être 8500.0
 
-        // Passage d'un ordre de VENTE (5 actions à prix plus élevé)
-        System.out.println("\n--- VENTE DE 5 APPLE (Plus-value) ---");
-        Ordre ordreVente = new Ordre(apple, LocalDateTime.now(), TypeOrdre.VENTE, 5, Devise.USD, 160.0);
-        cto.passerUnOrdre(ordreVente);
+            // Passage d'un ordre de VENTE (5 actions à prix plus élevé)
+            System.out.println("\n--- VENTE DE 5 APPLE (Plus-value) ---");
+            Ordre ordreVente = new Ordre(apple, LocalDateTime.now(), TypeOrdre.VENTE, 5, Devise.USD, 160.0);
+            cto.passerUnOrdre(ordreVente);
 
-        // Bilan Final
-        System.out.println("\n--- BILAN ---");
-        System.out.println("Solde final : " + cto.getSoldeEspeces());
-        System.out.println("Valeur du portefeuille : " + cto.getValeurTotaleBrute());
+            // Bilan Final
+            System.out.println("\n--- BILAN ---");
+            System.out.println("Solde final : " + cto.getSoldeEspeces());
+            System.out.println("Valeur du portefeuille : " + cto.getValeurTotaleBrute());
 
-        System.out.println("Fiscalité (CTO 30%) : " + cto.calculerFiscalite());
+            System.out.println("Fiscalité (CTO 30%) : " + cto.calculerFiscalite());
+        } catch (TransactionFractionneeInvalideException e) {
+            System.err.println("Erreur lors de l'ordre : " + e.getMessage());
+        }
+
     }
 }

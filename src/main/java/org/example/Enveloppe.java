@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.enums.TypeOrdre;
 import org.example.exceptions.ActifNotFoundException;
+import org.example.exceptions.TransactionFractionneeInvalideException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -22,7 +23,11 @@ public abstract class Enveloppe {
 
     public abstract double calculerFiscalite();
 
-    public void passerUnOrdre(Ordre o) {
+    public void passerUnOrdre(Ordre o) throws TransactionFractionneeInvalideException {
+        // Exception
+        if (o.getQuantite() % 1 != 0) {
+            throw new TransactionFractionneeInvalideException("Transaction Fractionnée invalide pour : " + o.getActif().getTicker());
+        }
         this.ordreEnCours.add(o);
 
         Actif actifConcerne = o.getActif();
@@ -131,6 +136,7 @@ public abstract class Enveloppe {
             System.out.println(t.toString());
         }
     }
+
     // Constructor
 
     public Enveloppe(String numero, double soldeEspeces, double fraisDepot) {
